@@ -3,8 +3,29 @@
 <section class="container page-section">
   <div class="panel">
     <h1 class="page-title"><%= page.title %></h1>
+    <% if (page.updated) { %><p class="crumbs">Last updated: <%= page.updated %></p><% } %>
     <p class="muted"><%= page.body %></p>
-    <p><a class="btn btn--primary" href="<%= base %>/">Back to home</a></p>
+
+    <% (page.sections || []).forEach(function (section) { %>
+      <section class="legal-section">
+        <h2 class="tool-heading"><%= section.heading %></h2>
+        <% section.paragraphs.forEach(function (text) { %><p><%= text %></p><% }) %>
+        <% if (section.items) { %>
+          <ul class="legal-list">
+            <% section.items.forEach(function (item) { %><li><%= item %></li><% }) %>
+          </ul>
+        <% } %>
+        <% if (section.links) { %>
+          <ul class="legal-list">
+            <% section.links.forEach(function (link) { %>
+              <li><a href="<%= link.href %>" target="_blank" rel="noopener"><%= link.label %></a></li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </section>
+    <% }) %>
+
+    <p class="page-back"><a class="btn btn--primary" href="<%= base %>/">Back to home</a></p>
   </div>
 </section>
 

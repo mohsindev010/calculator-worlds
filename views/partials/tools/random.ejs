@@ -1,0 +1,37 @@
+<div class="tool-page-calc">
+  <form class="calc tool-calc" id="randomTool" autocomplete="off" novalidate>
+    <div class="calc__display" aria-live="polite">
+      <div class="calc__expr" id="randomLabel"></div>
+      <div class="calc__result" id="randomResult">0</div>
+    </div>
+    <div class="tool-calc__body">
+      <div class="field-row">
+        <label class="field">
+          <span class="field__label">Minimum</span>
+          <input class="field__input" type="number" step="1" inputmode="numeric" name="min" value="1" />
+        </label>
+        <label class="field">
+          <span class="field__label">Maximum</span>
+          <input class="field__input" type="number" step="1" inputmode="numeric" name="max" value="100" />
+        </label>
+        <label class="field">
+          <span class="field__label">How many (up to 1,000)</span>
+          <input class="field__input" type="number" min="1" max="1000" step="1" inputmode="numeric" name="count" value="1" />
+        </label>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" name="unique" />
+        <span>No repeated numbers</span>
+      </label>
+
+      <div class="number-list" id="randomList" hidden></div>
+
+      <div class="tool-actions">
+        <button type="submit" class="key key--e">Generate</button>
+        <button type="button" class="key" id="randomCopy" disabled>Copy</button>
+        <button type="reset" class="key">Clear</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,46 @@
+<div class="tool-page-calc">
+  <form class="calc tool-calc" id="qrTool" autocomplete="off">
+    <div class="calc__display" aria-live="polite">
+      <div class="calc__expr" id="qrLabel"></div>
+      <div class="calc__result" id="qrResult"></div>
+    </div>
+    <div class="tool-calc__body">
+      <label class="field">
+        <span class="field__label">Text or link</span>
+        <textarea class="field__input" name="text" rows="3" placeholder="https://example.com"></textarea>
+      </label>
+
+      <div class="field-row">
+        <label class="field">
+          <span class="field__label">Size</span>
+          <select class="field__input" name="size">
+            <option value="200">Small</option>
+            <option value="320" selected>Medium</option>
+            <option value="512">Large</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="field__label">Error correction</span>
+          <select class="field__input" name="level">
+            <option value="L">Low</option>
+            <option value="M" selected>Medium</option>
+            <option value="Q">High</option>
+            <option value="H">Highest</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="qr-output" id="qrOutput" hidden>
+        <canvas id="qrCanvas" role="img" aria-label="Generated QR code"></canvas>
+      </div>
+
+      <div class="tool-actions">
+        <button type="button" class="key key--e" id="qrDownload" disabled>Download PNG</button>
+        <button type="reset" class="key">Clear</button>
+      </div>
+
+      <p class="tool-note">Your QR code is created in your browser, and your text isn't sent anywhere. Higher error correction helps a damaged code still scan, but makes the pattern denser.</p>
+    </div>
+  </form>
+</div>
+<script src="<%= base %>/js/vendor/qrcode.js"></script>
