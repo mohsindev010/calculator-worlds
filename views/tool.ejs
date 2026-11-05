@@ -1,3 +1,8 @@
+<%
+  // Tools with their own interface: slug -> partials/tools/<name>.ejs + /js/<name>.js
+  const widgets = { 'percentage-calculator': 'percentage', 'age-calculator': 'age' };
+  const widget = widgets[tool.slug];
+%>
 <%- include('partials/header') %>
 
 <section class="container page-section">
@@ -9,10 +14,12 @@
       <div class="tool-page-calc">
         <%- include('partials/calculator') %>
       </div>
+    <% } else if (widget) { %>
+      <%- include('partials/tools/' + widget) %>
     <% } else { %>
       <p class="muted">This tool page is ready to be built out. Add the <strong><%= tool.name %></strong> interface here.</p>
     <% } %>
   </div>
 </section>
 
-<%- include('partials/footer', { withCalculator: tool.slug === 'standard-calculator' }) %>
+<%- include('partials/footer', { withCalculator: tool.slug === 'standard-calculator', toolScript: widget }) %>

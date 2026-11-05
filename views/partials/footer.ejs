@@ -59,5 +59,8 @@
 <% if (typeof withCalculator !== 'undefined' && withCalculator) { %>
   <script src="<%= base %>/js/calculator.js"></script>
 <% } %>
+<% if (typeof toolScript !== 'undefined' && toolScript) { %>
+  <script src="<%= base %>/js/<%= toolScript %>.js"></script>
+<% } %>
 </body>
 </html>

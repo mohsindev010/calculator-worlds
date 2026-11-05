@@ -1,0 +1,87 @@
+<div class="pct-tool">
+  <p class="pct-note">Provide any two values below and click &ldquo;Calculate&rdquo; to get the third value.</p>
+  <form class="pct-box" data-pct-solve="of" autocomplete="off">
+    <div class="pct-row">
+      <span class="pct-input pct-input--percent"><input class="field__input" type="number" step="any" inputmode="decimal" name="p" aria-label="Percentage" /></span>
+      <span>of</span>
+      <input class="field__input pct-input" type="number" step="any" inputmode="decimal" name="base" aria-label="Value" />
+      <span>=</span>
+      <input class="field__input pct-input" type="number" step="any" inputmode="decimal" name="result" aria-label="Result" />
+    </div>
+    <div class="pct-actions">
+      <button type="submit" class="key key--e">Calculate</button>
+      <button type="reset" class="key">Clear</button>
+    </div>
+    <p class="pct-result" aria-live="polite" hidden></p>
+  </form>
+
+  <h2 class="pct-heading">Percentage Calculator in Common Phrases</h2>
+  <form class="pct-box" data-pct-calc="percentOf" autocomplete="off">
+    <div class="pct-row">
+      <span>What is</span>
+      <span class="pct-input pct-input--percent"><input class="field__input" type="number" step="any" inputmode="decimal" name="a" aria-label="Percentage" /></span>
+      <span>of</span>
+      <input class="field__input pct-input" type="number" step="any" inputmode="decimal" name="b" aria-label="Value" />
+      <button type="submit" class="key key--e pct-row__action">Calculate</button>
+    </div>
+    <p class="pct-result" aria-live="polite" hidden></p>
+  </form>
+  <form class="pct-box" data-pct-calc="whatPercent" autocomplete="off">
+    <div class="pct-row">
+      <input class="field__input pct-input" type="number" step="any" inputmode="decimal" name="a" aria-label="Value" />
+      <span>is what % of</span>
+      <input class="field__input pct-input" type="number" step="any" inputmode="decimal" name="b" aria-label="Whole value" />
+      <button type="submit" class="key key--e pct-row__action">Calculate</button>
+    </div>
+    <p class="pct-result" aria-live="polite" hidden></p>
+  </form>
+  <form class="pct-box" data-pct-calc="percentOfWhat" autocomplete="off">
+    <div class="pct-row">
+      <input class="field__input pct-input" type="number" step="any" inputmode="decimal" name="a" aria-label="Value" />
+      <span>is</span>
+      <span class="pct-input pct-input--percent"><input class="field__input" type="number" step="any" inputmode="decimal" name="b" aria-label="Percentage" /></span>
+      <span>of what</span>
+      <button type="submit" class="key key--e pct-row__action">Calculate</button>
+    </div>
+    <p class="pct-result" aria-live="polite" hidden></p>
+  </form>
+
+  <h2 class="pct-heading">Percentage Difference Calculator</h2>
+  <form class="pct-box" data-pct-calc="difference" autocomplete="off">
+    <div class="pct-row">
+      <label class="field pct-input">
+        <span class="field__label">Value 1</span>
+        <input class="field__input" type="number" step="any" inputmode="decimal" name="a" />
+      </label>
+      <label class="field pct-input">
+        <span class="field__label">Value 2</span>
+        <input class="field__input" type="number" step="any" inputmode="decimal" name="b" />
+      </label>
+    </div>
+    <div class="pct-actions">
+      <button type="submit" class="key key--e">Calculate</button>
+      <button type="reset" class="key">Clear</button>
+    </div>
+    <p class="pct-result" aria-live="polite" hidden></p>
+  </form>
+
+  <h2 class="pct-heading">Percentage Change Calculator</h2>
+  <p class="pct-note">Provide any two values below and click &ldquo;Calculate&rdquo; to get the third value.</p>
+  <form class="pct-box" data-pct-solve="change" autocomplete="off">
+    <div class="pct-row">
+      <input class="field__input pct-input" type="number" step="any" inputmode="decimal" name="base" aria-label="Starting value" />
+      <select class="field__input pct-input" name="dir" aria-label="Increase or decrease">
+        <option value="increase">Increase</option>
+        <option value="decrease">Decrease</option>
+      </select>
+      <span class="pct-input pct-input--percent"><input class="field__input" type="number" step="any" inputmode="decimal" name="p" aria-label="Percentage" /></span>
+      <span>=</span>
+      <input class="field__input pct-input" type="number" step="any" inputmode="decimal" name="result" aria-label="Result" />
+    </div>
+    <div class="pct-actions">
+      <button type="submit" class="key key--e">Calculate</button>
+      <button type="reset" class="key">Clear</button>
+    </div>
+    <p class="pct-result" aria-live="polite" hidden></p>
+  </form>
+</div>

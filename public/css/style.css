@@ -242,6 +242,57 @@ svg { display: block; }
 
 .tool-page-calc { max-width: 980px; margin-top: 24px; }
 
+/* ---------------- Percentage calculator ---------------- */
+.pct-tool { max-width: 720px; margin-top: 20px; }
+.pct-note { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+.pct-heading { font-size: 18px; font-weight: 700; color: var(--navy); margin: 28px 0 12px; }
+.pct-box {
+  background: var(--indigo-soft); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px; margin-bottom: 8px; font-size: 14px; color: var(--navy);
+}
+.pct-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.pct-row:has(.field) { align-items: flex-start; }
+.pct-input { flex: 0 1 130px; min-width: 90px; position: relative; display: block; }
+.pct-box .field__input { height: 42px; padding: 0 12px; font-size: 14px; }
+.pct-box input[type="number"] { appearance: textfield; -moz-appearance: textfield; }
+.pct-box input[type="number"]::-webkit-inner-spin-button,
+.pct-box input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.pct-input--percent input { padding-right: 28px; }
+.pct-input--percent::after {
+  content: '%'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); pointer-events: none;
+}
+.pct-box .key { height: 42px; padding: 0 16px; font-size: 14px; font-weight: 600; }
+.pct-box .key:not(.key--e) { background: var(--border); }
+.pct-actions { display: flex; gap: 8px; margin-top: 12px; }
+.pct-row__action { margin-left: auto; }
+.pct-result { margin-top: 12px; font-size: 16px; font-weight: 700; color: var(--indigo-dark); overflow-wrap: anywhere; }
+.pct-result.is-error { color: var(--pink); font-weight: 500; }
+
+/* ---------------- Age calculator ---------------- */
+.tool-calc { padding: 0; }
+.tool-calc .calc__result, .tool-calc .calc__expr { white-space: normal; overflow-wrap: anywhere; }
+#ageTool { max-width: 980px; margin-top: 24px; }
+.tool-calc__body { display: flex; flex-direction: column; gap: 16px; padding: 18px 16px 16px; }
+.tool-calc__clear { width: 100%; }
+
+.field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field__label { font-size: 14px; font-weight: 500; color: var(--muted); }
+.field__input {
+  width: 100%; height: 52px; padding: 0 14px;
+  background: #fff; border: 2px solid var(--border); border-radius: 10px; outline: 0;
+  font-size: 16px; color: var(--text);
+  transition: border-color .2s, box-shadow .2s;
+}
+.field__input:focus { border-color: #b9bcf7; box-shadow: 0 0 0 4px rgba(91, 95, 240, .08); }
+.field__input::placeholder { color: #9aa0c0; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 0; }
+.stat { background: #f5f6fc; border-radius: 10px; padding: 12px 14px; }
+.stat dt { font-size: 13px; color: var(--muted); }
+.stat dd { margin: 2px 0 0; font-size: 18px; font-weight: 700; color: var(--navy); }
+
 /* ---------------- Popular tools ---------------- */
 .popular { margin-top: 40px; padding: 28px 24px 32px; }
 .popular__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }

@@ -1,0 +1,28 @@
+<form class="calc tool-calc" id="ageTool" autocomplete="off">
+  <div class="calc__display" aria-live="polite">
+    <div class="calc__expr" id="ageExpr"></div>
+    <div class="calc__result" id="ageResult">0</div>
+  </div>
+  <div class="tool-calc__body">
+    <div class="field-row">
+      <label class="field">
+        <span class="field__label">Date of birth</span>
+        <input class="field__input" type="date" name="dob" id="ageDob" />
+      </label>
+      <label class="field">
+        <span class="field__label">Age on this date</span>
+        <input class="field__input" type="date" name="on" id="ageOn" />
+      </label>
+    </div>
+
+    <dl class="stat-grid" id="ageStats" hidden>
+      <div class="stat"><dt>Total months</dt><dd id="ageMonths"></dd></div>
+      <div class="stat"><dt>Total weeks</dt><dd id="ageWeeks"></dd></div>
+      <div class="stat"><dt>Total days</dt><dd id="ageDays"></dd></div>
+      <div class="stat"><dt>Next birthday</dt><dd id="ageNext"></dd></div>
+      <div class="stat"><dt>Born on a</dt><dd id="ageWeekday"></dd></div>
+    </dl>
+
+    <button type="reset" class="key key--d tool-calc__clear">Clear</button>
+  </div>
+</form>
