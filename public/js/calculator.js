@@ -20,8 +20,13 @@
       var ch = src[i];
       if (/\s/.test(ch)) { i++; continue; }
 
-      var num = /^(\d+\.?\d*|\.\d+)(E[+-]?\d+)?/.exec(src.slice(i));
-      if (num) { tokens.push({ t: 'num', v: parseFloat(num[0]) }); i += num[0].length; continue; }
+      var num = /^(\d+\.?\d*|\.\d+)(E[+\-−]?\d+)?/.exec(src.slice(i)); // the minus key inserts −
+      if (num) {
+        tokens.push({ t: 'num', v: parseFloat(num[0].replace('−', '-')) });
+        i += num[0].length;
+        if (src[i] === '.') throw new Error('Malformed number'); // 1.2.3 is not 1.2 x .3
+        continue;
+      }
 
       if (src.startsWith('Ans', i)) { tokens.push({ t: 'ans' }); i += 3; continue; }
 
@@ -49,6 +54,20 @@
     return r;
   }
 
+  // Floating-point noise is only recognisable where it is created, not in the final value:
+  // 0.3 - 0.1 - 0.2 and sin(180) leave tiny leftovers, but 1E-13 is a real number.
+  var NOISE = 1e-12;
+
+  function addSub(a, b) {
+    var r = a + b;
+    return Math.abs(r) < NOISE * Math.max(Math.abs(a), Math.abs(b)) ? 0 : r;
+  }
+
+  // Only near multiples of 90 degrees: sin(1E-14) in radians is a genuinely small result
+  function snapTrig(r, radians) {
+    return Math.abs(radians) > 1 && Math.abs(r) < NOISE ? 0 : r;
+  }
+
   function evaluate(src, opts) {
     opts = opts || {};
     var deg = opts.angle !== 'rad';
@@ -67,7 +86,7 @@
       while (isOp(peek(), ['+', '-', '−'])) {
         var op = tokens[pos++].v;
         var right = parseTerm();
-        left = op === '+' ? left + right : left - right;
+        left = addSub(left, op === '+' ? right : -right);
       }
       return left;
     }
@@ -136,10 +155,13 @@
     }
 
     function applyFn(name, x) {
+      var a = toRad(x);
       switch (name) {
-        case 'sin': return Math.sin(toRad(x));
-        case 'cos': return Math.cos(toRad(x));
-        case 'tan': return Math.tan(toRad(x));
+        case 'sin': return snapTrig(Math.sin(a), a);
+        case 'cos': return snapTrig(Math.cos(a), a);
+        case 'tan':
+          if (snapTrig(Math.cos(a), a) === 0) throw new Error('tan is undefined here');
+          return snapTrig(Math.tan(a), a);
         case 'asin': return fromRad(Math.asin(x));
         case 'acos': return fromRad(Math.acos(x));
         case 'atan': return fromRad(Math.atan(x));
@@ -157,18 +179,40 @@
     return result;
   }
 
-  // Tidy floating-point noise: 0.1+0.2 -> 0.3, sin(180) -> 0
+  // Round to 12 significant digits: 0.1+0.2 -> 0.3
   function clean(n) {
     if (!isFinite(n)) throw new Error('Math error');
-    if (Math.abs(n) < 1e-12) return 0;
     return parseFloat(n.toPrecision(12));
   }
 
+  // Shows all 12 digits kept by clean(), so a displayed result can be reused without losing precision
   function format(n) {
     if (Math.abs(n) >= 1e15 || (Math.abs(n) < 1e-6 && n !== 0)) {
-      return n.toExponential(8).replace(/\.?0+e/, 'e').replace('e+', 'E').replace('e-', 'E-');
+      return n.toExponential(11).replace(/\.?0+e/, 'e').replace('e+', 'E').replace('e-', 'E-');
     }
     return String(n);
+  }
+
+  // Index where the last operand of an expression starts, or -1 if it does not end in one.
+  // An operand is a number, constant, (group) or fn(group), with any trailing ! or %.
+  function operandStart(s) {
+    var end = s.length;
+    while (end > 0 && (s[end - 1] === '!' || s[end - 1] === '%')) end--;
+
+    if (s[end - 1] === ')') {
+      var depth = 0;
+      for (var i = end - 1; i >= 0; i--) {
+        if (s[i] === ')') depth++;
+        else if (s[i] === '(' && --depth === 0) {
+          var fn = /(asin|acos|atan|sin|cos|tan|log|ln|abs|√|∛)$/.exec(s.slice(0, i));
+          return fn ? fn.index : i;
+        }
+      }
+      return -1;
+    }
+
+    var m = /(?:(?:\d+\.?\d*|\.\d+)(?:E[+\-−]?\d+)?|π|e|Ans)$/.exec(s.slice(0, end));
+    return m ? m.index : -1;
   }
 
   // ------------------------------------------------------------
@@ -213,16 +257,24 @@
       exprEl.textContent = '';
     }
 
-    function insert(text) {
+    // Brackets keep the sign attached: (-5)^2 is 25, but -5^2 is -25
+    function asOperand(n) {
+      return n < 0 ? '(' + format(n) + ')' : format(n);
+    }
+
+    // isValue: text is a complete number (RND, MR) rather than a typed character
+    function insert(text, isValue) {
       if (errored) { expr = ''; startFresh(); }
       if (justEvaluated) {
         // A new number starts fresh; an operator continues from the result
-        var continues = /^[+\-−×÷^%!*/]/.test(text) || text.charAt(0) === '^';
-        if (continues) expr = format(ans);
+        if (/^[+\-−×÷*/]/.test(text)) expr = format(ans);
+        else if (/^[\^%!]/.test(text)) expr = asOperand(ans);
         else expr = '';
         justEvaluated = false;
         exprEl.textContent = '';
       }
+      // These start with digits, so they would merge into a number being typed: 5 + 10^( -> 510^(
+      if ((isValue || /^\d+[÷^]\(/.test(text)) && /[\d.E]$/.test(expr)) expr += '×';
       expr += text;
       render();
     }
@@ -262,15 +314,22 @@
 
     function negate() {
       if (errored) return;
-      var wrapped = /\(-(\d+\.?\d*|\.\d+)\)$/.exec(expr);
-      if (wrapped) {
-        expr = expr.slice(0, -wrapped[0].length) + wrapped[1];
+      if (justEvaluated) {
+        expr = ans < 0 ? format(-ans) : '(-' + format(ans) + ')';
+        justEvaluated = false;
+        exprEl.textContent = '';
       } else {
-        var trailing = /(\d+\.?\d*|\.\d+)$/.exec(expr);
-        if (trailing) expr = expr.slice(0, -trailing[0].length) + '(-' + trailing[0] + ')';
-        else expr += '(-';
+        var start = operandStart(expr);
+        if (start === -1) {
+          expr += '(-';
+        } else {
+          var operand = expr.slice(start);
+          var inner = /^\(-.*\)$/.test(operand) ? operand.slice(2, -1) : null;
+          // Only unwrap (-x) when x is one operand: (-5+3) is not the negative of 5+3
+          var negated = inner !== null && operandStart(inner) === 0 ? inner : '(-' + operand + ')';
+          expr = expr.slice(0, start) + negated;
+        }
       }
-      justEvaluated = false;
       render();
     }
 
@@ -281,7 +340,7 @@
     function memoryAdd(sign) {
       var v = currentValue();
       if (v === null) return;
-      memory = clean(memory + sign * v);
+      memory = clean(addSub(memory, sign * v));
       exprEl.textContent = 'M = ' + format(memory);
     }
 
@@ -290,10 +349,10 @@
       back: back,
       clear: clearAll,
       negate: negate,
-      random: function () { insert(String(Math.round(Math.random() * 1000) / 1000)); },
+      random: function () { insert(String(Math.round(Math.random() * 1000) / 1000), true); },
       'm-plus': function () { memoryAdd(1); },
       'm-minus': function () { memoryAdd(-1); },
-      'm-recall': function () { insert(format(memory)); },
+      'm-recall': function () { insert(asOperand(memory), true); },
     };
 
     root.addEventListener('click', function (e) {
@@ -301,6 +360,9 @@
       if (!btn || !root.contains(btn)) return;
       if (btn.dataset.action) actions[btn.dataset.action]();
       else if (btn.dataset.insert !== undefined) insert(btn.dataset.insert);
+      // After a mouse click, don't leave focus on the key, or Enter would press it again instead of "=".
+      // detail is 0 for keyboard activation, where focus must stay put.
+      if (e.detail > 0) btn.blur();
     });
 
     // Recalculate nothing on mode change, but keep the UI consistent
@@ -316,6 +378,7 @@
       var tag = (e.target && e.target.tagName) || '';
       if (tag === 'INPUT' || tag === 'TEXTAREA' || e.ctrlKey || e.metaKey || e.altKey) return;
       var k = e.key;
+      if (k === 'Enter' && (tag === 'A' || tag === 'BUTTON')) return; // let links and buttons activate
       if (/^[0-9.]$/.test(k)) { insert(k); }
       else if (k === '+') insert('+');
       else if (k === '-') insert('−');

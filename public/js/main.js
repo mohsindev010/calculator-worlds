@@ -1,5 +1,14 @@
 // Site-wide behaviour: mobile menu, dropdown, live tool filter.
 (function () {
+  // Every query word must start a word in the tool's name or category,
+  // so "age" finds Age Calculator but not Percentage or Mortgage.
+  function cardMatches(card, q) {
+    var words = (card.dataset.name + ' ' + card.dataset.category).split(/\s+/);
+    return q.split(/\s+/).every(function (part) {
+      return words.some(function (word) { return word.indexOf(part) === 0; });
+    });
+  }
+
   // Mobile menu
   var toggle = document.getElementById('navToggle');
   var nav = document.getElementById('mainNav');
@@ -31,9 +40,7 @@
     var found = 0;
 
     searchGrid.querySelectorAll('.tool-card').forEach(function (card) {
-      var match =
-        needle !== '' &&
-        (card.dataset.name.indexOf(needle) !== -1 || card.dataset.category.indexOf(needle) !== -1);
+      var match = needle !== '' && cardMatches(card, needle);
       card.classList.toggle('is-hidden', !match);
       if (match) found++;
     });
@@ -57,10 +64,7 @@
       var q = input.value.trim().toLowerCase();
       var visible = 0;
       cards.forEach(function (card) {
-        var match =
-          !q ||
-          card.dataset.name.indexOf(q) !== -1 ||
-          card.dataset.category.indexOf(q) !== -1;
+        var match = !q || cardMatches(card, q);
         card.classList.toggle('is-hidden', !match);
         if (match) visible++;
       });
