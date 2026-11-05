@@ -103,22 +103,6 @@ const privacy = {
       paragraphs: ['The site doesn’t set its own cookies, and it doesn’t currently use analytics or advertising. If that changes, we’ll update this policy.'],
     },
     {
-      heading: 'Outside services',
-      paragraphs: [
-        'Like any website, the site needs some outside services to work. When your browser connects to them, they receive technical information such as your IP address and browser details, and they handle it under their own privacy policies:',
-      ],
-      items: [
-        'Vercel hosts the site, so it receives requests for each page you visit, including the page address.',
-        'Google Fonts provides the site’s font, so your browser contacts Google when pages load.',
-        'ExchangeRate-API provides exchange rates. Your browser contacts it only when you open the Currency Converter. It doesn’t receive the amounts or currencies you choose, because the conversion happens in your browser.',
-      ],
-      links: [
-        { label: 'Vercel privacy policy', href: 'https://vercel.com/legal/privacy-policy' },
-        { label: 'Google privacy policy', href: 'https://policies.google.com/privacy' },
-        { label: 'ExchangeRate-API terms and privacy information', href: 'https://www.exchangerate-api.com/terms' },
-      ],
-    },
-    {
       heading: 'If you email us',
       paragraphs: ['If you contact us by email, we’ll use your email address and message to reply to you, and keep them only as long as we need them for that.'],
     },
