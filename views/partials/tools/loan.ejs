@@ -1,0 +1,77 @@
+<%
+  const compounds = [
+    [1, 'Annually (APY)'], [2, 'Semi-annually'], [4, 'Quarterly'], [12, 'Monthly (APR)'],
+    [24, 'Semi-monthly'], [26, 'Biweekly'], [52, 'Weekly'], [365, 'Daily'],
+  ];
+  const paybacks = [
+    [365, 'Every day'], [52, 'Every week'], [26, 'Every 2 weeks'], [24, 'Every half month'],
+    [12, 'Every month'], [4, 'Every quarter'], [2, 'Every 6 months'], [1, 'Every year'],
+  ];
+  const loans = [
+    { type: 'amortized', title: 'Amortized Loan: Paying Back a Fixed Amount Periodically', compound: 12 },
+    { type: 'deferred', title: 'Deferred Payment Loan: Paying Back a Lump Sum Due at Maturity', compound: 1 },
+  ];
+%>
+<div class="tool-page-calc">
+  <% loans.forEach(function (loan) { %>
+    <h2 class="tool-heading"><%= loan.title %></h2>
+    <form class="calc tool-calc" data-loan="<%= loan.type %>" autocomplete="off">
+      <div class="calc__display" aria-live="polite">
+        <div class="calc__expr" data-out="label"></div>
+        <div class="calc__result" data-out="main">$0.00</div>
+      </div>
+      <div class="tool-calc__body">
+        <div class="field-row">
+          <label class="field">
+            <span class="field__label">Loan amount ($)</span>
+            <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="amount" placeholder="100000" />
+          </label>
+          <label class="field">
+            <span class="field__label">Term (years)</span>
+            <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="years" placeholder="10" />
+          </label>
+          <label class="field">
+            <span class="field__label">Term (months)</span>
+            <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="months" placeholder="0" />
+          </label>
+          <label class="field">
+            <span class="field__label">Interest rate (%)</span>
+            <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="rate" placeholder="6" />
+          </label>
+          <label class="field">
+            <span class="field__label">Compound</span>
+            <select class="field__input" name="compound">
+              <% compounds.forEach(function (c) { %>
+                <option value="<%= c[0] %>" <%= c[0] === loan.compound ? 'selected' : '' %>><%= c[1] %></option>
+              <% }) %>
+            </select>
+          </label>
+          <% if (loan.type === 'amortized') { %>
+            <label class="field">
+              <span class="field__label">Pay back</span>
+              <select class="field__input" name="payback">
+                <% paybacks.forEach(function (p) { %>
+                  <option value="<%= p[0] %>" <%= p[0] === 12 ? 'selected' : '' %>><%= p[1] %></option>
+                <% }) %>
+              </select>
+            </label>
+          <% } %>
+        </div>
+
+        <dl class="stat-grid" data-out="stats" hidden>
+          <% if (loan.type === 'amortized') { %>
+            <div class="stat"><dt data-out="totalLabel">Total of payments</dt><dd data-out="total"></dd></div>
+          <% } %>
+          <div class="stat"><dt>Total interest</dt><dd data-out="interest"></dd></div>
+          <div class="stat"><dt>Principal</dt><dd data-out="principalPct"></dd></div>
+          <div class="stat"><dt>Interest</dt><dd data-out="interestPct"></dd></div>
+        </dl>
+
+        <div class="tool-actions">
+          <button type="submit" class="key key--e">Calculate</button>
+          <button type="reset" class="key">Clear</button>
+        </div>
+      </div>
+    </form>
+  <% }) %>
+</div>

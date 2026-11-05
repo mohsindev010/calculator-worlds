@@ -1,0 +1,54 @@
+<div class="tool-page-calc">
+  <form class="calc tool-calc" id="bmiTool" autocomplete="off">
+    <div class="calc__display" aria-live="polite">
+      <div class="calc__expr" id="bmiLabel"></div>
+      <div class="calc__result" id="bmiResult">0</div>
+    </div>
+    <div class="tool-calc__body">
+      <div class="calc__angle" role="radiogroup" aria-label="Units">
+        <label><input type="radio" name="unit" value="metric" checked /><span class="radio"></span> Metric</label>
+        <label><input type="radio" name="unit" value="us" /><span class="radio"></span> US</label>
+      </div>
+
+      <div class="field-row" id="bmiMetric">
+        <label class="field">
+          <span class="field__label">Height (cm)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="cm" placeholder="180" />
+        </label>
+        <label class="field">
+          <span class="field__label">Weight (kg)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="kg" placeholder="65" />
+        </label>
+      </div>
+
+      <div class="field-row" id="bmiUs" hidden>
+        <label class="field">
+          <span class="field__label">Height (feet)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="ft" placeholder="5" />
+        </label>
+        <label class="field">
+          <span class="field__label">Height (inches)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="in" placeholder="11" />
+        </label>
+        <label class="field">
+          <span class="field__label">Weight (pounds)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="lb" placeholder="143" />
+        </label>
+      </div>
+
+      <dl class="stat-grid" id="bmiStats" hidden>
+        <div class="stat"><dt>Healthy BMI range</dt><dd id="bmiRange"></dd></div>
+        <div class="stat"><dt>Healthy weight for this height</dt><dd id="bmiHealthy"></dd></div>
+        <div class="stat"><dt>BMI Prime</dt><dd id="bmiPrime"></dd></div>
+        <div class="stat"><dt>Ponderal Index</dt><dd id="bmiPonderal"></dd></div>
+      </dl>
+
+      <div class="tool-actions">
+        <button type="submit" class="key key--e">Calculate</button>
+        <button type="reset" class="key">Clear</button>
+      </div>
+
+      <p class="tool-note">The categories shown are for adults. BMI is a general guide, not a medical diagnosis.</p>
+    </div>
+  </form>
+</div>

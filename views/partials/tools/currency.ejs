@@ -1,0 +1,38 @@
+<div class="tool-page-calc">
+  <form class="calc tool-calc" id="currencyTool" autocomplete="off">
+    <div class="calc__display" aria-live="polite">
+      <div class="calc__expr" id="currencyLabel"></div>
+      <div class="calc__result" id="currencyResult">0</div>
+    </div>
+    <div class="tool-calc__body">
+      <div class="field-row">
+        <label class="field">
+          <span class="field__label">Amount</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="amount" placeholder="100" />
+        </label>
+        <label class="field">
+          <span class="field__label">From</span>
+          <select class="field__input" name="from" disabled></select>
+        </label>
+        <label class="field">
+          <span class="field__label">To</span>
+          <select class="field__input" name="to" disabled></select>
+        </label>
+      </div>
+
+      <dl class="stat-grid" id="currencyStats" hidden>
+        <div class="stat"><dt id="currencyRateLabel"></dt><dd id="currencyRate"></dd></div>
+        <div class="stat"><dt id="currencyInverseLabel"></dt><dd id="currencyInverse"></dd></div>
+      </dl>
+
+      <button type="button" class="key key--e tool-calc__clear" id="currencyRetry" hidden>Try again</button>
+      <button type="reset" class="key tool-calc__clear">Clear</button>
+
+      <p class="tool-note">
+        <span id="currencyUpdated"></span>
+        Exchange rates are for information only and may differ from the rate your bank offers.
+        <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">Rates By Exchange Rate API</a>
+      </p>
+    </div>
+  </form>
+</div>

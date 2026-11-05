@@ -242,7 +242,6 @@
     }
 
     function calc() {
-      if (expr === '') return ans;
       return clean(evaluate(expr, { angle: angleMode(), ans: ans }));
     }
 
@@ -334,6 +333,7 @@
     }
 
     function currentValue() {
+      if (expr === '') return 0; // the display shows 0, so M+ must not add the previous answer
       try { return calc(); } catch (e) { return null; }
     }
 
@@ -376,7 +376,9 @@
     // Keyboard support (only when focus is not in another input)
     doc.addEventListener('keydown', function (e) {
       var tag = (e.target && e.target.tagName) || '';
-      if (tag === 'INPUT' || tag === 'TEXTAREA' || e.ctrlKey || e.metaKey || e.altKey) return;
+      // The Deg/Rad radios are inputs too, but typing after clicking one should still reach the calculator
+      var typing = (tag === 'INPUT' && e.target.type !== 'radio') || tag === 'TEXTAREA';
+      if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
       var k = e.key;
       if (k === 'Enter' && (tag === 'A' || tag === 'BUTTON')) return; // let links and buttons activate
       if (/^[0-9.]$/.test(k)) { insert(k); }

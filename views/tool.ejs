@@ -1,6 +1,17 @@
 <%
   // Tools with their own interface: slug -> partials/tools/<name>.ejs + /js/<name>.js
-  const widgets = { 'percentage-calculator': 'percentage', 'age-calculator': 'age' };
+  const widgets = {
+    'percentage-calculator': 'percentage',
+    'age-calculator': 'age',
+    'loan-calculator': 'loan',
+    'mortgage-calculator': 'mortgage',
+    'bmi-calculator': 'bmi',
+    'time-converter': 'converter',
+    'temperature-converter': 'converter',
+    'length-converter': 'converter',
+    'weight-converter': 'converter',
+    'currency-converter': 'currency',
+  };
   const widget = widgets[tool.slug];
 %>
 <%- include('partials/header') %>

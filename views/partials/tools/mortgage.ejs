@@ -1,0 +1,59 @@
+<div class="tool-page-calc">
+  <form class="calc tool-calc" id="mortgageTool" autocomplete="off">
+    <div class="calc__display" aria-live="polite">
+      <div class="calc__expr" id="mortgageLabel"></div>
+      <div class="calc__result" id="mortgageResult">$0.00</div>
+    </div>
+    <div class="tool-calc__body">
+      <div class="field-row">
+        <label class="field">
+          <span class="field__label">Home price ($)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="price" placeholder="400000" />
+        </label>
+        <label class="field">
+          <span class="field__label">Down payment (%)</span>
+          <input class="field__input" type="number" min="0" max="100" step="any" inputmode="decimal" name="down" placeholder="20" />
+        </label>
+        <label class="field">
+          <span class="field__label">Loan term (years)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="years" placeholder="30" />
+        </label>
+        <label class="field">
+          <span class="field__label">Interest rate (%)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="rate" placeholder="6" />
+        </label>
+      </div>
+
+      <div class="field-row">
+        <label class="field">
+          <span class="field__label">Property tax ($ per year)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="tax" placeholder="Optional" />
+        </label>
+        <label class="field">
+          <span class="field__label">Home insurance ($ per year)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="insurance" placeholder="Optional" />
+        </label>
+        <label class="field">
+          <span class="field__label">HOA fee ($ per month)</span>
+          <input class="field__input" type="number" min="0" step="any" inputmode="decimal" name="hoa" placeholder="Optional" />
+        </label>
+      </div>
+
+      <dl class="stat-grid" id="mortgageStats" hidden>
+        <div class="stat"><dt>Principal &amp; interest</dt><dd id="mortgagePi"></dd></div>
+        <div class="stat"><dt>Monthly tax, insurance &amp; HOA</dt><dd id="mortgageExtras"></dd></div>
+        <div class="stat"><dt>Down payment</dt><dd id="mortgageDown"></dd></div>
+        <div class="stat"><dt>Loan amount</dt><dd id="mortgageLoan"></dd></div>
+        <div class="stat"><dt id="mortgageTotalLabel">Total of loan payments</dt><dd id="mortgageTotal"></dd></div>
+        <div class="stat"><dt>Total interest</dt><dd id="mortgageInterest"></dd></div>
+      </dl>
+
+      <div class="tool-actions">
+        <button type="submit" class="key key--e">Calculate</button>
+        <button type="reset" class="key">Clear</button>
+      </div>
+
+      <p class="tool-note">Assumes a fixed rate with monthly payments. This is an estimate, not a loan offer.</p>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,31 @@
+<%# Shared by the time, temperature, length and weight converters. The units are in public/js/converter.js. %>
+<div class="tool-page-calc">
+  <form class="calc tool-calc" id="unitConverter" data-kind="<%= tool.slug.replace('-converter', '') %>" autocomplete="off">
+    <div class="calc__display" aria-live="polite">
+      <div class="calc__expr" id="converterLabel"></div>
+      <div class="calc__result" id="converterResult">0</div>
+    </div>
+    <div class="tool-calc__body">
+      <div class="field-row">
+        <label class="field">
+          <span class="field__label">Value</span>
+          <input class="field__input" type="number" step="any" inputmode="decimal" name="value" placeholder="Enter a value" />
+        </label>
+        <label class="field">
+          <span class="field__label">From</span>
+          <select class="field__input" name="from"></select>
+        </label>
+        <label class="field">
+          <span class="field__label">To</span>
+          <select class="field__input" name="to"></select>
+        </label>
+      </div>
+
+      <dl class="stat-grid" id="converterStats" hidden></dl>
+
+      <button type="reset" class="key tool-calc__clear">Clear</button>
+
+      <p class="tool-note" id="converterNote" hidden></p>
+    </div>
+  </form>
+</div>
