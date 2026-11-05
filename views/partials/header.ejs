@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title %></title>
+  <meta name="description" content="Free online calculators, converters and generators. Fast, accurate and easy to use." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="<%= base %>/css/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container header__inner">
+    <%- include('logo') %>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="main-nav" id="mainNav" aria-label="Main">
+      <ul>
+        <% navLinks.forEach(function (link) { %>
+          <% const active = currentPath === link.href; %>
+          <li class="<%= link.children ? 'has-dropdown' : '' %>">
+            <a href="<%= base %><%= link.href %>" class="<%= active ? 'is-active' : '' %>">
+              <%= link.label %>
+              <% if (link.children) { %><span class="chev"><%- include('icon', { name: 'chevron' }) %></span><% } %>
+            </a>
+            <% if (link.children) { %>
+              <ul class="dropdown">
+                <% link.children.forEach(function (c) { %>
+                  <li><a href="<%= base %><%= c.href %>"><%= c.label %></a></li>
+                <% }) %>
+              </ul>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+      <form class="header-search" action="<%= base %>/search/" method="get" role="search">
+        <span class="header-search__icon"><%- include('icon', { name: 'search' }) %></span>
+        <input type="search" name="q" placeholder="Search calculators..." aria-label="Search calculators" />
+      </form>
+    </nav>
+  </div>
+</header>
+<main>

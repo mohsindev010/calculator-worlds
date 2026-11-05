@@ -1,0 +1,63 @@
+</main>
+
+<footer class="site-footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <%- include('logo') %>
+      <p>Calculator Worlds offers free online calculators, converters, &amp; generators to simplify everyday tasks. Get fast, accurate, &amp; reliable results with easy-to-use tools designed for students, professionals, businesses, &amp; everyone.</p>
+      <div class="social">
+        <a href="#" aria-label="Facebook"><%- include('icon', { name: 'facebook' }) %></a>
+        <a href="#" aria-label="X (Twitter)"><%- include('icon', { name: 'twitter' }) %></a>
+        <a href="#" aria-label="Instagram"><%- include('icon', { name: 'instagram' }) %></a>
+        <a href="#" aria-label="LinkedIn"><%- include('icon', { name: 'linkedin' }) %></a>
+      </div>
+    </div>
+
+    <div class="footer__col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="<%= base %>/about/">About Us</a></li>
+        <li><a href="<%= base %>/contact/">Contact Us</a></li>
+        <li><a href="<%= base %>/terms/">Terms and Conditions</a></li>
+        <li><a href="<%= base %>/privacy/">Privacy Policy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4>Help Desk</h4>
+      <ul>
+        <li><a href="<%= base %>/how-to-use/">How to Use Calculators</a></li>
+        <li><a href="<%= base %>/faqs/">FAQs</a></li>
+        <li><a href="<%= base %>/blogs/">Blogs</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4>Contact Details</h4>
+      <ul>
+        <li class="contact-line">
+          <span class="contact-line__icon"><%- include('icon', { name: 'mail' }) %></span>
+          <a href="mailto:sales@calculatorworlds.com">sales@calculatorworlds.com</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>&copy; <%= year %> Calculator Worlds. All rights reserved.</p>
+      <ul>
+        <li><a href="<%= base %>/privacy/">Privacy Policy</a></li>
+        <li><a href="<%= base %>/terms/">Terms &amp; Conditions</a></li>
+        <li><a href="<%= base %>/contact/">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="<%= base %>/js/main.js"></script>
+<% if (typeof withCalculator !== 'undefined' && withCalculator) { %>
+  <script src="<%= base %>/js/calculator.js"></script>
+<% } %>
+</body>
+</html>

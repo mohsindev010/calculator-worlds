@@ -1,0 +1,88 @@
+<%- include('partials/header') %>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__text">
+      <h1>Calculator Worlds</h1>
+      <p>Make calculations faster and easier with our collection of free online calculator tools. Use our free online calculators to solve complex and simple calculations quickly. Save time, reduce errors, and get precise results whenever you need them.</p>
+
+      <form class="hero-search" action="<%= base %>/search/" method="get" role="search">
+        <span class="hero-search__icon"><%- include('partials/icon', { name: 'search' }) %></span>
+        <input type="search" name="q" placeholder="Search calculators, tools or topics..." aria-label="Search calculators, tools or topics" />
+        <button type="submit" class="btn btn--primary">Search</button>
+      </form>
+
+      <div class="popular-searches">
+        <span class="popular-searches__label">Popular Searches:</span>
+        <ul>
+          <% popularSearches.forEach(function (s) { %>
+            <li><a class="chip" href="<%= base %>/search/?q=<%= encodeURIComponent(s.q) %>"><%= s.label %></a></li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hero__art">
+      <img src="<%= base %>/img/hero-calculator.svg" alt="3D calculator with percent, square and root badges" width="560" height="440" />
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY CARDS -->
+<section class="container">
+  <div class="category-grid">
+    <% categoryCards.forEach(function (c) { %>
+      <a class="category-card" href="<%= base %><%= c.href %>">
+        <span class="category-card__icon category-card__icon--<%= c.color %>"><%- include('partials/icon', { name: c.icon }) %></span>
+        <span class="category-card__body">
+          <span class="category-card__title"><%= c.title %></span>
+          <span class="category-card__text"><%= c.text %></span>
+        </span>
+        <span class="category-card__arrow" aria-hidden="true"><%- include('partials/icon', { name: 'arrow' }) %></span>
+      </a>
+    <% }) %>
+  </div>
+</section>
+
+<!-- CALCULATOR SECTION -->
+<section class="container">
+  <div class="panel calc-section">
+    <h2 class="section-title">Tools That Make Calculation Easy</h2>
+
+    <form class="tool-search" id="toolSearchForm" action="<%= base %>/search/" method="get" role="search">
+      <input type="search" name="q" id="toolSearch" placeholder="Search your desired tool..." aria-label="Search your desired tool" autocomplete="off" />
+      <button type="submit" class="tool-search__btn" aria-label="Search"><%- include('partials/icon', { name: 'search' }) %></button>
+    </form>
+
+    <div class="calc-layout">
+      <div class="calc-info">
+        <h3>Standard Calculator</h3>
+        <span class="underline"></span>
+        <p>Use this free online calculator to handle your everyday calculations quickly and accurately, from simple sums to scientific functions.</p>
+        <img class="calc-info__art" src="<%= base %>/img/mini-calculator.svg" alt="" width="320" height="260" loading="lazy" />
+      </div>
+
+      <%- include('partials/calculator') %>
+    </div>
+  </div>
+</section>
+
+<!-- POPULAR TOOLS -->
+<section class="container">
+  <div class="panel popular">
+    <div class="popular__head">
+      <h2 class="section-title">Most Popular Tools</h2>
+      <a class="view-all" href="<%= base %>/tools/">View all tools <%- include('partials/icon', { name: 'arrow' }) %></a>
+    </div>
+
+    <div class="tool-grid" id="toolGrid">
+      <% popularTools.forEach(function (tool) { %>
+        <%- include('partials/tool-card', { tool: tool }) %>
+      <% }) %>
+    </div>
+    <p class="no-results" id="noResults" hidden>No tools match your search. Try another keyword.</p>
+  </div>
+</section>
+
+<%- include('partials/footer', { withCalculator: true }) %>

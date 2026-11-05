@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" role="img" aria-label="Calculator illustration">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#eef0ff" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#f6f4ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4a4d58"/>
+      <stop offset="1" stop-color="#2c2e36"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9dce6"/>
+      <stop offset="1" stop-color="#b9bdcb"/>
+    </linearGradient>
+    <linearGradient id="keyLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e6e8ee"/>
+      <stop offset="1" stop-color="#bfc3cf"/>
+    </linearGradient>
+    <linearGradient id="keyDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8b8f9c"/>
+      <stop offset="1" stop-color="#666a77"/>
+    </linearGradient>
+    <linearGradient id="keyOrange" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffa43a"/>
+      <stop offset="1" stop-color="#e9780f"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#3b3f8f" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <circle cx="280" cy="215" r="200" fill="url(#glow)"/>
+  <circle cx="280" cy="215" r="196" fill="none" stroke="#dfe1ff" stroke-width="2"/>
+  <ellipse cx="300" cy="400" rx="110" ry="14" fill="#9aa0c8" opacity="0.25"/>
+
+  <g transform="translate(285 215) rotate(14)" filter="url(#soft)">
+    <rect x="-108" y="-155" width="216" height="310" rx="28" fill="url(#body)"/>
+    <rect x="-88" y="-135" width="176" height="64" rx="12" fill="url(#screen)"/>
+    <text x="78" y="-90" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="28" font-style="italic" fill="#6c7183">123.45</text>
+
+    <!-- keys -->
+    <g>
+      <!-- row 1 -->
+      <rect x="-88" y="-52" width="38" height="34" rx="9" fill="url(#keyDark)"/>
+      <rect x="-42" y="-52" width="38" height="34" rx="9" fill="url(#keyDark)"/>
+      <rect x="4" y="-52" width="38" height="34" rx="9" fill="url(#keyDark)"/>
+      <rect x="50" y="-52" width="38" height="34" rx="9" fill="url(#keyOrange)"/>
+      <!-- row 2 -->
+      <rect x="-88" y="-8" width="38" height="34" rx="9" fill="url(#keyLight)"/>
+      <rect x="-42" y="-8" width="38" height="34" rx="9" fill="url(#keyLight)"/>
+      <rect x="4" y="-8" width="38" height="34" rx="9" fill="url(#keyLight)"/>
+      <rect x="50" y="-8" width="38" height="34" rx="9" fill="url(#keyOrange)"/>
+      <!-- row 3 -->
+      <rect x="-88" y="36" width="38" height="34" rx="9" fill="url(#keyLight)"/>
+      <rect x="-42" y="36" width="38" height="34" rx="9" fill="url(#keyLight)"/>
+      <rect x="4" y="36" width="38" height="34" rx="9" fill="url(#keyLight)"/>
+      <rect x="50" y="36" width="38" height="34" rx="9" fill="url(#keyOrange)"/>
+      <!-- row 4 -->
+      <rect x="-88" y="80" width="38" height="34" rx="9" fill="url(#keyLight)"/>
+      <rect x="-42" y="80" width="38" height="34" rx="9" fill="url(#keyLight)"/>
+      <rect x="4" y="80" width="38" height="34" rx="9" fill="url(#keyLight)"/>
+      <rect x="50" y="80" width="38" height="34" rx="9" fill="url(#keyOrange)"/>
+    </g>
+    <g font-family="Inter, Arial, sans-serif" font-weight="700" font-size="15" fill="#454957" text-anchor="middle">
+      <text x="-69" y="-30">7</text><text x="-23" y="-30">8</text><text x="23" y="-30">9</text>
+      <text x="-69" y="14">4</text><text x="-23" y="14">5</text><text x="23" y="14">6</text>
+      <text x="-69" y="58">1</text><text x="-23" y="58">2</text><text x="23" y="58">3</text>
+      <text x="-69" y="102">0</text><text x="-23" y="102">.</text><text x="23" y="102">=</text>
+    </g>
+    <g font-family="Inter, Arial, sans-serif" font-weight="700" font-size="17" fill="#ffffff" text-anchor="middle">
+      <text x="69" y="-30">÷</text><text x="69" y="14">×</text><text x="69" y="58">−</text><text x="69" y="102">+</text>
+    </g>
+  </g>
+
+  <!-- floating badges -->
+  <g filter="url(#soft)">
+    <g transform="translate(78 150) rotate(-8)">
+      <rect width="80" height="80" rx="18" fill="#f2616f"/>
+      <text x="40" y="56" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="46" fill="#fff">%</text>
+    </g>
+    <g transform="translate(446 72) rotate(10)">
+      <rect width="84" height="84" rx="18" fill="#7b83e8"/>
+      <text x="42" y="58" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="38" fill="#fff">x²</text>
+    </g>
+    <g transform="translate(404 304) rotate(-6)">
+      <rect width="92" height="82" rx="18" fill="#4cbf7f"/>
+      <text x="46" y="56" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="36" fill="#fff">√x</text>
+    </g>
+  </g>
+</svg>

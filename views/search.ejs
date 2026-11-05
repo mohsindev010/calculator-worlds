@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+
+<%# Search runs in the browser (static hosting has no server): every tool card is rendered
+    hidden, and main.js reveals the ones matching ?q=... %>
+<section class="container page-section">
+  <div class="panel" id="searchPage">
+    <h1 class="page-title">Search results</h1>
+    <p class="muted" id="searchSummary">Type something in the search bar to find a tool.</p>
+
+    <div class="tool-grid" id="searchGrid">
+      <% allTools.forEach(function (tool) { %>
+        <%- include('partials/tool-card', { tool: tool }) %>
+      <% }) %>
+    </div>
+    <p class="no-results" id="searchEmpty" hidden>No tools found. Try &ldquo;loan&rdquo;, &ldquo;bmi&rdquo; or &ldquo;converter&rdquo;.</p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

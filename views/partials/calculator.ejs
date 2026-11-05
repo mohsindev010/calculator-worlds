@@ -1,0 +1,60 @@
+<%
+  // t = style: f (function), n (number), o (operator), d (dark/navy), e (equals)
+  // i = text inserted into the expression, a = special action
+  const rows = [
+    [
+      { l: 'sin', i: 'sin(', t: 'f' }, { l: 'cos', i: 'cos(', t: 'f' }, { l: 'tan', i: 'tan(', t: 'f' },
+      { angle: true },
+      { l: '7', i: '7', t: 'n' }, { l: '8', i: '8', t: 'n' }, { l: '9', i: '9', t: 'n' },
+      { l: '&divide;', i: '÷', t: 'o' }, { l: 'Back', a: 'back', t: 'd' },
+    ],
+    [
+      { l: 'sin<sup>-1</sup>', i: 'asin(', t: 'f' }, { l: 'cos<sup>-1</sup>', i: 'acos(', t: 'f' }, { l: 'tan<sup>-1</sup>', i: 'atan(', t: 'f' },
+      { l: '&pi;', i: 'π', t: 'f' }, { l: 'e', i: 'e', t: 'f' },
+      { l: '4', i: '4', t: 'n' }, { l: '5', i: '5', t: 'n' }, { l: '6', i: '6', t: 'n' },
+      { l: '&times;', i: '×', t: 'o' }, { l: 'Ans', i: 'Ans', t: 'd' },
+    ],
+    [
+      { l: 'x<sup>y</sup>', i: '^', t: 'f' }, { l: 'x<sup>3</sup>', i: '^3', t: 'f' }, { l: 'x<sup>2</sup>', i: '^2', t: 'f' },
+      { l: 'e<sup>x</sup>', i: 'e^(', t: 'f' }, { l: '10<sup>x</sup>', i: '10^(', t: 'f' },
+      { l: '1', i: '1', t: 'n' }, { l: '2', i: '2', t: 'n' }, { l: '3', i: '3', t: 'n' },
+      { l: '&minus;', i: '−', t: 'o' }, { l: 'M+', a: 'm-plus', t: 'd' },
+    ],
+    [
+      { l: '&radic;x', i: '√(', t: 'f' }, { l: '<sup>3</sup>&radic;x', i: '∛(', t: 'f' }, { l: '1/x', i: '1÷(', t: 'f' },
+      { l: 'ln', i: 'ln(', t: 'f' }, { l: 'log', i: 'log(', t: 'f' },
+      { l: '0', i: '0', t: 'n' }, { l: '.', i: '.', t: 'n' }, { l: 'EXP', i: 'E', t: 'n' },
+      { l: '+', i: '+', t: 'o' }, { l: 'M-', a: 'm-minus', t: 'd' },
+    ],
+    [
+      { l: '(', i: '(', t: 'f' }, { l: ')', i: ')', t: 'f' }, { l: '%', i: '%', t: 'f' },
+      { l: 'n!', i: '!', t: 'f' }, { l: '|x|', i: 'abs(', t: 'f' },
+      { l: '&plusmn;', a: 'negate', t: 'n' }, { l: 'RND', a: 'random', t: 'n' },
+      { l: 'AC', a: 'clear', t: 'd' }, { l: '=', a: 'equals', t: 'e' }, { l: 'MR', a: 'm-recall', t: 'd' },
+    ],
+  ];
+%>
+<div class="calc" id="calculator" aria-label="Scientific calculator">
+  <div class="calc__display" aria-live="polite">
+    <div class="calc__expr" id="calcExpr"></div>
+    <div class="calc__result" id="calcResult">0</div>
+  </div>
+
+  <div class="calc__keys">
+    <% rows.forEach(function (row) { %>
+      <% row.forEach(function (k) { %>
+        <% if (k.angle) { %>
+          <div class="calc__angle" role="radiogroup" aria-label="Angle mode">
+            <label><input type="radio" name="angle" value="deg" checked /><span class="radio"></span> Deg</label>
+            <label><input type="radio" name="angle" value="rad" /><span class="radio"></span> Rad</label>
+          </div>
+        <% } else { %>
+          <button type="button"
+                  class="key key--<%= k.t %>"
+                  <% if (k.i !== undefined) { %>data-insert="<%= k.i %>"<% } %>
+                  <% if (k.a) { %>data-action="<%= k.a %>"<% } %>><%- k.l %></button>
+        <% } %>
+      <% }) %>
+    <% }) %>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+
+<section class="container page-section">
+  <div class="panel">
+    <p class="crumbs"><a href="<%= base %>/">Home</a> / <a href="<%= base %>/tools/">Tools</a> / <%= tool.name %></p>
+    <h1 class="page-title"><%= tool.name %></h1>
+
+    <% if (tool.slug === 'standard-calculator') { %>
+      <div class="tool-page-calc">
+        <%- include('partials/calculator') %>
+      </div>
+    <% } else { %>
+      <p class="muted">This tool page is ready to be built out. Add the <strong><%= tool.name %></strong> interface here.</p>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer', { withCalculator: tool.slug === 'standard-calculator' }) %>

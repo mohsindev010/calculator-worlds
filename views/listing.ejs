@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+
+<section class="container page-section">
+  <div class="panel">
+    <h1 class="page-title"><%= heading %></h1>
+    <% if (tools.length) { %>
+      <div class="tool-grid">
+        <% tools.forEach(function (tool) { %>
+          <%- include('partials/tool-card', { tool: tool }) %>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="no-results">Nothing here yet.</p>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

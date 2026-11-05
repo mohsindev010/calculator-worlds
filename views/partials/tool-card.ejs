@@ -1,0 +1,7 @@
+<a class="tool-card tool-card--<%= tool.color %>" href="<%= base %>/tool/<%= tool.slug %>/" data-name="<%= tool.name.toLowerCase() %>" data-category="<%= tool.category.toLowerCase() %>">
+  <span class="tool-card__icon"><%- include('icon', { name: tool.icon }) %></span>
+  <span class="tool-card__body">
+    <span class="tool-card__name"><%= tool.name %></span>
+    <span class="tool-card__cat"><%= tool.category %></span>
+  </span>
+</a>
