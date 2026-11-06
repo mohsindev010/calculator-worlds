@@ -1,0 +1,15 @@
+<%- include('partials/header') %>
+
+<section class="container page-section">
+  <article class="panel">
+    <h1 class="page-title"><%= post.title %></h1>
+    <p class="crumbs"><%= post.date %></p>
+    <% if (post.image) { %>
+      <img class="post-image" src="<%= base + post.image.url %>" alt="<%= post.image.alt %>" width="<%= post.image.width %>" height="<%= post.image.height %>" />
+    <% } %>
+    <div class="post-body"><%- renderBlocks(post.content, base) %></div>
+    <p class="page-back"><a class="btn btn--primary" href="<%= base %>/blogs/">Back to all posts</a></p>
+  </article>
+</section>
+
+<%- include('partials/footer') %>
