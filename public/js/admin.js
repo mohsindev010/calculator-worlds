@@ -277,20 +277,20 @@
     if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
       throw new Error(`This image is larger than ${MAX_UPLOAD_MB} MB. Please choose a smaller one.`);
     }
-    const signatureRes = await fetch('/admin/upload-signature', { method: 'POST' });
-    if (signatureRes.redirected) throw new Error('You were logged out. Please log in again in a new tab, then retry.');
-    const signature = await signatureRes.json().catch(() => ({}));
-    if (!signatureRes.ok) throw new Error(signature.error || 'Could not start the upload.');
+    const startRes = await fetch('/admin/upload-settings', { method: 'POST' });
+    if (startRes.redirected) throw new Error('You were logged out. Please log in again in a new tab, then retry.');
+    const start = await startRes.json().catch(() => ({}));
+    if (!startRes.ok) throw new Error(start.error || 'Could not start the upload.');
 
     const form = new FormData();
-    Object.keys(signature.fields).forEach((key) => form.append(key, signature.fields[key]));
+    Object.keys(start.fields).forEach((key) => form.append(key, start.fields[key]));
     form.append('file', file);
-    const uploadRes = await fetch(signature.url, { method: 'POST', body: form });
+    const uploadRes = await fetch(start.url, { method: 'POST', body: form });
     const result = await uploadRes.json().catch(() => ({}));
     if (!uploadRes.ok) {
       const message = result.error && result.error.message ? result.error.message : `Error ${uploadRes.status}`;
-      const hint = uploadRes.status === 401 || uploadRes.status === 404
-        ? ' Please check the CLOUDINARY settings in Vercel, then redeploy.' : '';
+      const hint = uploadRes.status === 400 || uploadRes.status === 401 || uploadRes.status === 404
+        ? ' Please check the upload preset in Cloudinary and the CLOUDINARY settings in Vercel.' : '';
       throw new Error(`Cloudinary said: ${message}.${hint}`);
     }
     return result;
