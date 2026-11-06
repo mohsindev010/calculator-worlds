@@ -3,6 +3,7 @@
 const path = require('path');
 const express = require('express');
 const { getPages, notFoundPage, commonLocals } = require('./lib/site');
+const { getBlogPage } = require('./lib/blog');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,11 @@ app.use((req, res, next) => {
 
 getPages().forEach((page) => {
   app.get(page.url, (req, res) => res.render(page.view, page.locals));
+});
+
+app.get(['/blogs/', '/blogs/:slug/'], async (req, res) => {
+  const page = await getBlogPage(req.params.slug);
+  res.status(page.status).render(page.view, page.locals);
 });
 
 app.use((req, res) => {
