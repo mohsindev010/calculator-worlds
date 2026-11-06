@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<section class="container page-section">
+  <div class="panel">
+    <h1 class="page-title">Blogs</h1>
+    <% if (posts.length) { %>
+      <div class="blog-grid">
+        <% posts.forEach(function (post) { %>
+          <a class="blog-card" href="<%= base %>/blogs/<%= post.slug %>/">
+            <% if (post.image) { %>
+              <img class="blog-card__image" src="<%= base + post.image.cardUrl %>" alt="" loading="lazy" />
+            <% } %>
+            <span class="blog-card__body">
+              <span class="blog-card__date"><%= post.date %></span>
+              <span class="blog-card__title"><%= post.title %></span>
+              <span class="blog-card__text"><%= post.description %></span>
+            </span>
+          </a>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="no-results">Articles and guides are coming soon.</p>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

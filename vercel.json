@@ -1,0 +1,11 @@
+{
+  "functions": {
+    "api/blog.js": { "includeFiles": "views/**" }
+  },
+  "rewrites": [
+    { "source": "/blogs", "destination": "/api/blog" },
+    { "source": "/blogs/", "destination": "/api/blog" },
+    { "source": "/blogs/:slug", "destination": "/api/blog?slug=:slug" },
+    { "source": "/blogs/:slug/", "destination": "/api/blog?slug=:slug" }
+  ]
+}
