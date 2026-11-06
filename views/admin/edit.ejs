@@ -7,12 +7,15 @@
     <div class="admin-bar">
       <h1 class="page-title"><%= post.id ? 'Edit post' : 'New post' %></h1>
       <% if (post.id) { %>
-        <span class="admin-status admin-status--<%= post.status %>"><%= post.status === 'published' ? 'Published' : 'Draft' %></span>
+        <div class="admin-actions">
+          <% if (post.status === 'published') { %><a class="admin-link" href="/blogs/<%= post.slug %>/" target="_blank" rel="noopener">View post</a><% } %>
+          <span class="admin-status admin-status--<%= post.status %>"><%= post.status === 'published' ? 'Published' : 'Draft' %></span>
+        </div>
       <% } %>
     </div>
 
     <% if (error) { %><p class="admin-error" role="alert"><%= error %></p><% } %>
-    <p class="admin-notice" id="savedNotice" hidden role="status">Saved.<% if (post.status === 'published') { %> <a class="admin-link" href="/blogs/<%= post.slug %>/" target="_blank" rel="noopener">View post</a><% } %></p>
+    <p class="admin-notice" id="savedNotice" hidden role="status">Saved.</p>
 
     <form method="post" action="<%= action %>" class="admin-form" id="postForm">
       <label class="admin-field">
@@ -46,19 +49,20 @@
       </div>
 
       <div class="admin-field">
-        <label for="postContent">Content</label>
+        <span id="contentLabel">Content</span>
         <div class="admin-toolbar" id="toolbar" role="toolbar" aria-label="Formatting">
-          <button type="button" data-wrap="**" data-placeholder="bold text">Bold</button>
-          <button type="button" data-wrap="*" data-placeholder="italic text">Italic</button>
-          <button type="button" data-line="## " data-placeholder="Heading">Heading</button>
-          <button type="button" data-line="### " data-placeholder="Subheading">Subheading</button>
-          <button type="button" data-line="- " data-placeholder="List item">List</button>
-          <button type="button" data-line="1. " data-placeholder="List item">Numbered</button>
-          <button type="button" data-line="> " data-placeholder="Quote">Quote</button>
+          <button type="button" data-command="bold" aria-pressed="false">Bold</button>
+          <button type="button" data-command="italic" aria-pressed="false">Italic</button>
+          <button type="button" data-block="H2" aria-pressed="false">Heading</button>
+          <button type="button" data-block="H3" aria-pressed="false">Subheading</button>
+          <button type="button" data-command="insertUnorderedList" aria-pressed="false">List</button>
+          <button type="button" data-command="insertOrderedList" aria-pressed="false">Numbered</button>
+          <button type="button" data-block="BLOCKQUOTE" aria-pressed="false">Quote</button>
           <button type="button" id="insertLink">Link</button>
           <label class="admin-toolbar__file">Image<input type="file" id="contentFile" accept="image/jpeg,image/png,image/webp,image/gif" hidden /></label>
         </div>
-        <textarea name="content" id="postContent" rows="18"><%= post.content || '' %></textarea>
+        <div class="post-body admin-editor" id="editor" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="contentLabel"><%- contentHtml %></div>
+        <input type="hidden" name="content" id="postContent" />
         <p class="admin-upload-status" id="uploadStatus" role="status"></p>
       </div>
 
@@ -69,7 +73,7 @@
     </form>
 
     <% if (post.id) { %>
-      <form method="post" action="/admin/posts/<%= post.id %>/delete" class="admin-delete" id="deleteForm">
+      <form method="post" action="/admin/posts/<%= post.id %>/delete" class="admin-delete" data-confirm="Delete this post permanently? This cannot be undone.">
         <button class="btn admin-btn admin-btn--danger" type="submit">Delete post</button>
       </form>
     <% } %>

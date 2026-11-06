@@ -384,7 +384,9 @@ select.field__input { padding: 0 4px; }
 .post-body ol { list-style: decimal; padding-left: 22px; }
 .post-body a { color: var(--indigo-dark); text-decoration: underline; }
 .post-body img { max-width: 100%; height: auto; border-radius: 10px; }
-.post-body blockquote { padding-left: 16px; border-left: 3px solid var(--indigo); }
+.post-article { max-width: 780px; margin-inline: auto; }
+.post-body blockquote { margin: 14px 0 0; padding-left: 16px; border-left: 3px solid var(--indigo); }
+.post-body li + li { margin-top: 6px; }
 .post-body pre { padding: 14px; overflow-x: auto; background: #f3f4fa; border-radius: 10px; }
 
 /* ---------------- Blog admin ---------------- */
@@ -422,6 +424,11 @@ select.field__input { padding: 0 4px; }
   background: #f3f4fa; border: 1px solid #dfe2f0; border-radius: 8px; cursor: pointer;
 }
 .admin-toolbar button:hover, .admin-toolbar__file:hover { background: var(--indigo-soft); }
+.admin-toolbar button[aria-pressed="true"] { color: #fff; background: var(--indigo); border-color: var(--indigo); }
+.admin-editor { min-height: 360px; margin-top: 0; padding: 16px; max-width: none; font-weight: 400; background: #fff; border: 1px solid #cfd3e6; border-radius: 10px; }
+.admin-editor:focus { outline: 2px solid var(--indigo); outline-offset: 1px; }
+.admin-btn--small { padding: 6px 14px; font-size: 14px; }
+.admin-row form { margin: 0; }
 .admin-upload-status { min-height: 20px; font-size: 14px; font-weight: 400; color: #6b7194; }
 .admin-delete { margin-top: 28px; padding-top: 20px; border-top: 1px solid #e6e8f2; }
 
