@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+
+<section class="container page-section">
+  <div class="panel">
+    <div class="admin-bar">
+      <h1 class="page-title">Posts</h1>
+      <div class="admin-actions">
+        <a class="btn btn--primary" href="/admin/new">New post</a>
+        <form method="post" action="/admin/logout"><button class="btn admin-btn" type="submit">Log out</button></form>
+      </div>
+    </div>
+
+    <% if (posts.length) { %>
+      <ul class="admin-list">
+        <% posts.forEach(function (post) { %>
+          <li class="admin-row">
+            <a class="admin-row__title" href="/admin/posts/<%= post.id %>"><%= post.title %></a>
+            <div class="admin-actions">
+              <span class="admin-status admin-status--<%= post.status %>"><%= post.status === 'published' ? 'Published' : 'Draft' %></span>
+              <% if (post.status === 'published') { %><a class="btn admin-btn admin-btn--small" href="/blogs/<%= post.slug %>/" target="_blank" rel="noopener">View</a><% } %>
+              <a class="btn admin-btn admin-btn--small" href="/admin/posts/<%= post.id %>">Edit</a>
+              <form method="post" action="/admin/posts/<%= post.id %>/delete" data-confirm="Delete &quot;<%= post.title %>&quot; permanently? This cannot be undone.">
+                <button class="btn admin-btn admin-btn--small admin-btn--danger" type="submit">Delete</button>
+              </form>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p class="no-results">No posts yet. Click New post to write your first one.</p>
+    <% } %>
+  </div>
+</section>
+
+<script src="/js/admin.js" defer></script>
+<%- include('../partials/footer') %>

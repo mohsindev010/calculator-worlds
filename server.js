@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express');
 const { getPages, notFoundPage, commonLocals } = require('./lib/site');
 const { getBlogPage } = require('./lib/blog');
+const { createRouter: createAdminRouter } = require('./lib/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,8 @@ app.use((req, res, next) => {
   });
   next();
 });
+
+app.use('/admin', createAdminRouter());
 
 getPages().forEach((page) => {
   app.get(page.url, (req, res) => res.render(page.view, page.locals));
