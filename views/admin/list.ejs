@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+
+<section class="container page-section">
+  <div class="panel">
+    <div class="admin-bar">
+      <h1 class="page-title">Posts</h1>
+      <div class="admin-actions">
+        <a class="btn btn--primary" href="/admin/new">New post</a>
+        <form method="post" action="/admin/logout"><button class="btn admin-btn" type="submit">Log out</button></form>
+      </div>
+    </div>
+
+    <% if (posts.length) { %>
+      <ul class="admin-list">
+        <% posts.forEach(function (post) { %>
+          <li class="admin-row">
+            <a class="admin-row__title" href="/admin/posts/<%= post.id %>"><%= post.title %></a>
+            <span class="admin-status admin-status--<%= post.status %>"><%= post.status === 'published' ? 'Published' : 'Draft' %></span>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p class="no-results">No posts yet. Click New post to write your first one.</p>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

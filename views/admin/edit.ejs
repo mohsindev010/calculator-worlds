@@ -1,0 +1,80 @@
+<%- include('../partials/header') %>
+
+<% const action = post.id ? '/admin/posts/' + post.id : '/admin/new'; %>
+<section class="container page-section">
+  <div class="panel">
+    <p><a class="admin-link" href="/admin">&larr; All posts</a></p>
+    <div class="admin-bar">
+      <h1 class="page-title"><%= post.id ? 'Edit post' : 'New post' %></h1>
+      <% if (post.id) { %>
+        <span class="admin-status admin-status--<%= post.status %>"><%= post.status === 'published' ? 'Published' : 'Draft' %></span>
+      <% } %>
+    </div>
+
+    <% if (error) { %><p class="admin-error" role="alert"><%= error %></p><% } %>
+    <p class="admin-notice" id="savedNotice" hidden role="status">Saved.<% if (post.status === 'published') { %> <a class="admin-link" href="/blogs/<%= post.slug %>/" target="_blank" rel="noopener">View post</a><% } %></p>
+
+    <form method="post" action="<%= action %>" class="admin-form" id="postForm">
+      <label class="admin-field">
+        <span>Title</span>
+        <input type="text" name="title" id="postTitle" value="<%= post.title || '' %>" maxlength="200" required />
+      </label>
+      <label class="admin-field">
+        <span>URL</span>
+        <input type="text" name="slug" id="postSlug" value="<%= post.slug || '' %>" maxlength="120" data-locked="<%= post.slug ? '1' : '' %>" aria-describedby="slugHelp" />
+        <small id="slugHelp">The post will be at /blogs/<strong id="slugPreview"><%= post.slug || 'your-post' %></strong>/</small>
+      </label>
+      <label class="admin-field">
+        <span>Description</span>
+        <textarea name="description" rows="2" maxlength="300"><%= post.description || '' %></textarea>
+      </label>
+
+      <div class="admin-field">
+        <span>Cover image</span>
+        <img class="admin-cover" id="coverPreview" src="<%= post.image_url || '' %>" alt="" <%= post.image_url ? '' : 'hidden' %> />
+        <input type="hidden" name="image_url" id="imageUrl" value="<%= post.image_url || '' %>" />
+        <input type="hidden" name="image_width" id="imageWidth" value="<%= post.image_width || '' %>" />
+        <input type="hidden" name="image_height" id="imageHeight" value="<%= post.image_height || '' %>" />
+        <div class="admin-actions">
+          <input type="file" id="coverFile" accept="image/jpeg,image/png,image/webp,image/gif" aria-label="Upload a cover image" />
+          <button class="btn admin-btn" type="button" id="coverRemove" <%= post.image_url ? '' : 'hidden' %>>Remove image</button>
+        </div>
+        <label class="admin-field">
+          <span>Image description, for screen readers</span>
+          <input type="text" name="image_alt" value="<%= post.image_alt || '' %>" maxlength="200" />
+        </label>
+      </div>
+
+      <div class="admin-field">
+        <label for="postContent">Content</label>
+        <div class="admin-toolbar" id="toolbar" role="toolbar" aria-label="Formatting">
+          <button type="button" data-wrap="**" data-placeholder="bold text">Bold</button>
+          <button type="button" data-wrap="*" data-placeholder="italic text">Italic</button>
+          <button type="button" data-line="## " data-placeholder="Heading">Heading</button>
+          <button type="button" data-line="### " data-placeholder="Subheading">Subheading</button>
+          <button type="button" data-line="- " data-placeholder="List item">List</button>
+          <button type="button" data-line="1. " data-placeholder="List item">Numbered</button>
+          <button type="button" data-line="> " data-placeholder="Quote">Quote</button>
+          <button type="button" id="insertLink">Link</button>
+          <label class="admin-toolbar__file">Image<input type="file" id="contentFile" accept="image/jpeg,image/png,image/webp,image/gif" hidden /></label>
+        </div>
+        <textarea name="content" id="postContent" rows="18"><%= post.content || '' %></textarea>
+        <p class="admin-upload-status" id="uploadStatus" role="status"></p>
+      </div>
+
+      <div class="admin-actions">
+        <button class="btn btn--primary" type="submit" name="action" value="publish"><%= post.status === 'published' ? 'Update post' : 'Publish' %></button>
+        <button class="btn admin-btn" type="submit" name="action" value="draft"><%= post.status === 'published' ? 'Unpublish' : 'Save draft' %></button>
+      </div>
+    </form>
+
+    <% if (post.id) { %>
+      <form method="post" action="/admin/posts/<%= post.id %>/delete" class="admin-delete" id="deleteForm">
+        <button class="btn admin-btn admin-btn--danger" type="submit">Delete post</button>
+      </form>
+    <% } %>
+  </div>
+</section>
+
+<script src="/js/admin.js" defer></script>
+<%- include('../partials/footer') %>
