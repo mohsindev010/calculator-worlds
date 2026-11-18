@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     currentPath: page.url,
     ...page.locals,
   });
-  // Vercel caches good pages for 60s; older copies cover a Strapi outage for up to a day.
+  // Vercel caches good pages for 60s; older copies cover a database outage for up to a day.
   res.setHeader('Cache-Control', page.status === 200
     ? 'public, s-maxage=60, stale-while-revalidate=86400'
     : 'no-store');

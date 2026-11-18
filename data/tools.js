@@ -4,21 +4,21 @@
 const categoryCards = [
   {
     title: 'Browse Calculators',
-    text: 'Explore a wide range of online calculators',
+    text: 'Calculators for math, finance, and health',
     href: '/calculators/',
     color: 'indigo',
     icon: 'calculator',
   },
   {
     title: 'Browse Generators',
-    text: 'Generate QR codes, numbers, notes & more',
+    text: 'Generators for QR codes, random numbers, and passwords',
     href: '/generators/',
     color: 'green',
     icon: 'qr',
   },
   {
     title: 'Browse Converters',
-    text: 'Convert units, currency, length & more',
+    text: 'Converters for time, currency, temperature, length, and weight',
     href: '/converters/',
     color: 'orange',
     icon: 'convert',

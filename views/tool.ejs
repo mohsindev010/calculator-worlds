@@ -33,6 +33,21 @@
     <% } else { %>
       <p class="muted">This tool page is ready to be built out. Add the <strong><%= tool.name %></strong> interface here.</p>
     <% } %>
+
+    <% if (toolInfo) { %>
+      <div class="tool-info">
+        <section class="content-section">
+          <h2 class="tool-heading">How it works</h2>
+          <p><%= toolInfo.howItWorks %></p>
+        </section>
+        <section class="content-section">
+          <h2 class="tool-heading">Key features</h2>
+          <ul class="content-list">
+            <% toolInfo.features.forEach(function (feature) { %><li><%= feature %></li><% }) %>
+          </ul>
+        </section>
+      </div>
+    <% } %>
   </div>
 </section>
 

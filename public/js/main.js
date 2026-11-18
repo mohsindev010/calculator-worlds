@@ -48,8 +48,15 @@
     // Fill the header search box with the current query
     document.querySelectorAll('.header-search input[name="q"]').forEach(function (i) { i.value = query; });
 
-    if (summary && query) {
-      summary.textContent = 'Showing results for “' + query + '” (' + found + ' found)';
+    var searchIntro = document.getElementById('searchIntro');
+    var searchEmptyText = document.getElementById('searchEmptyText');
+    if (query) {
+      if (searchIntro) searchIntro.hidden = true;
+      if (summary) {
+        summary.textContent = 'Showing results for “' + query + '” (' + found + ' found).';
+        summary.hidden = found === 0;
+      }
+      if (searchEmptyText) searchEmptyText.textContent = 'No tools match “' + query + '”.';
     }
     if (searchEmpty) searchEmpty.hidden = !(query && found === 0);
   }

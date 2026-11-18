@@ -356,12 +356,15 @@ select.field__input { padding: 0 4px; }
 .crumbs { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
 .crumbs a:hover { color: var(--indigo); }
 
-.legal-section { max-width: 780px; margin-top: 24px; color: #2c3358; }
-.legal-section .tool-heading { margin: 0 0 8px; }
-.legal-section p + p { margin-top: 10px; }
-.legal-list { list-style: disc; padding-left: 22px; margin-top: 10px; }
-.legal-list li + li { margin-top: 8px; }
-.legal-list a { color: var(--indigo-dark); text-decoration: underline; }
+.content-section { max-width: 780px; margin-top: 24px; color: #2c3358; }
+.content-section .tool-heading { margin: 0 0 8px; }
+.content-section p + p { margin-top: 10px; }
+.content-list { list-style: disc; padding-left: 22px; margin-top: 10px; }
+.content-list li + li { margin-top: 8px; }
+.content-list a,
+.content-section p a,
+.muted a { color: var(--indigo-dark); text-decoration: underline; }
+.tool-info { margin-top: 40px; padding-top: 4px; border-top: 1px solid var(--border); }
 .page-back { margin-top: 32px; }
 
 /* ---------------- Blog ---------------- */

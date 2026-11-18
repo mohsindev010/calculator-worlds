@@ -3,6 +3,7 @@
 <section class="container page-section">
   <div class="panel">
     <h1 class="page-title"><%= heading %></h1>
+    <% if (intro) { %><p class="muted"><%= intro %></p><% } %>
     <% if (tools.length) { %>
       <div class="tool-grid">
         <% tools.forEach(function (tool) { %>
