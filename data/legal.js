@@ -1,12 +1,13 @@
 // Text of the Terms and Privacy pages. Keep the Privacy Policy in step with what the site does:
 // update it if you add analytics, ads, cookies, a contact form or another outside service.
 
-const UPDATED = '5 November 2026';
+const TERMS_UPDATED = '5 November 2026';
+const PRIVACY_UPDATED = '18 November 2026';
 const EMAIL = 'sales@calculatorworlds.com';
 
 const terms = {
   title: 'Terms and Conditions',
-  updated: UPDATED,
+  updated: TERMS_UPDATED,
   body: 'These terms apply when you use Calculator Worlds. By using the site, you agree to them. If you don’t agree, please don’t use the site.',
   sections: [
     {
@@ -83,7 +84,7 @@ const terms = {
 
 const privacy = {
   title: 'Privacy Policy',
-  updated: UPDATED,
+  updated: PRIVACY_UPDATED,
   body: 'This policy explains what happens to your information when you use Calculator Worlds. The short version: our tools run in your browser, and you don’t need an account to use them.',
   sections: [
     {
@@ -99,8 +100,17 @@ const privacy = {
       ],
     },
     {
+      heading: 'Outside services',
+      paragraphs: ['Some parts of the site load from outside services. When your browser contacts one of them, that service receives the details sent with any web request, such as your IP address and browser type.'],
+      items: [
+        'Fonts are loaded from Google Fonts on every page.',
+        'The Currency Converter gets exchange rates from ExchangeRate-API. Only the request for rates goes to that service. The amount you enter stays in your browser.',
+        'Blog images are stored on and served by Cloudinary.',
+      ],
+    },
+    {
       heading: 'Cookies, analytics and advertising',
-      paragraphs: ['The site doesn’t set its own cookies, and it doesn’t currently use analytics or advertising. If that changes, we’ll update this policy.'],
+      paragraphs: ['The site doesn’t set cookies for visitors, and it doesn’t currently use analytics or advertising. The only cookie it sets is a sign-in cookie for the people who manage our blog, and it’s used only in the admin area. If any of this changes, we’ll update this policy.'],
     },
     {
       heading: 'If you email us',
